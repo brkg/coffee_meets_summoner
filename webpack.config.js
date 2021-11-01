@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: "development",
   entry: './src/index.tsx',
   module: {
     rules: [
@@ -35,5 +35,10 @@ module.exports = {
     new HtmlWebpackPlugin({
         template: path.join(__dirname, "src", "index.html"),
     }),
-],
+  ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 }
