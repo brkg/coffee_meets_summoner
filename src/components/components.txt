@@ -1,0 +1,7 @@
+| Index.js
+    |App 
+        |Dashboard
+            | NavBar 
+            | UserProfile 
+            | Feed 
+                | Teamate 
