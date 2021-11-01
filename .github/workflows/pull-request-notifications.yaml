@@ -1,0 +1,21 @@
+name: pull-request-notification
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - 'main'
+
+jobs:
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ::set-env name=pull_number::$(jq — raw-output .pull_request.number $GITHUB_EVENT_PATH)
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@master
+        env: 
+          SLACK_CHANNEL: team-squirtle
+          SLACK_MESSAGE: ‘Please review on https://github.com/brkg/coffee_meets_summoner/pull/${{ env.pull_number}}’
+          SLACK_TITLE: ‘Pull Request’
+          SLACK_USERNAME: 'Brian Kang'
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
