@@ -1,5 +1,7 @@
 import React from "react";
 
 export default function UserProfile(props: Object) {
-  return <div>hi</div>;
+  const { avatar, userId, kda, rank, previousGames } = props;
+
+  return <div className="user-profile"></div>;
 }

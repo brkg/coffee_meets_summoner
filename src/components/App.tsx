@@ -1,7 +1,9 @@
 import React from "react";
-import Nav from "./views/Nav";
-import UserProfile from "./views/UserProfile";
-import Feed from "./views/Feed";
+import Dashboard from "./views/Dashboard";
 export default function App() {
-  return <div>hi</div>;
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }
