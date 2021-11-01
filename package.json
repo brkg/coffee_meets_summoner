@@ -1,0 +1,25 @@
+{
+  "name": "league_of_friendgens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brkg/league_of_friendgens.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brkg/league_of_friendgens/issues"
+  },
+  "homepage": "https://github.com/brkg/league_of_friendgens#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "typescript": "^4.4.4",
+    "webpack": "^5.61.0"
+  }
+}
