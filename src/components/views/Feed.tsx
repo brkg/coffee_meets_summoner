@@ -1,33 +1,37 @@
 import React from "react";
 import Teamate from "./Teamate";
 
-interface IUser {
-  userId: string;
-  kda: string;
+interface Iteamate {
+  summonerName: string;
+  points: number;
+  wins : number;
+  loses: number;
   rank: string;
-  previousGames: Object[];
-  avatar: string;
+  tier :String 
+  avatar: number;
+  highlightUser : Function;
 }
 
-interface UserProps {
-  teamates: IUser[];
-}
+ 
 
-export default function Feed(props: UserProps) {
+export default function Feed(props: any) {
   const { teamates } = props;
 
-  const feedOfUsers: Array<JSXElement> = [];
-  teamates.forEach((user: IUser) => {
-    const { avatar, userId, kda, rank, previousGames } = user;
+  const feedOfUsers: Array<JSX.Element> = [];
+  teamates.forEach((user: Iteamate) => {
+    const { avatar, summonerName, wins, loses, tier, rank, points, highlightUser} = user;
     feedOfUsers.push(
       <Teamate
         avatar={avatar}
-        userId={userId}
-        kda={kda}
+        summonerName={summonerName}
+        wins={wins}
+        loses={loses}
+        tier={tier}
         rank={rank}
-        previousGames={previousGames}
+        points={points}
+        highlightUser={highlightUser}
       />
     );
   });
-  return <div>{feedOfUsers}</div>;
+  return <div className="main-feed">{feedOfUsers}</div>;
 }
