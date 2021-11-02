@@ -1,12 +1,15 @@
 import React from "react";
 
-interface IhighlightedUser{
-    user : Object
-}
 
-export default function HighlightUser(props : IhighlightedUser){
+export default function HighlightUser(props : any){
+    const { avatar, summonerName } = props.user;
 
     return(
-        <div></div>
+        <div className="highlightedUserPanel">
+            <div className='generic-data'>
+            <img src={`https://leagueoflegendsavatar/${avatar}`} width="100px" />
+            <p>{summonerName}</p>
+            </div>
+        </div>
     )
 }

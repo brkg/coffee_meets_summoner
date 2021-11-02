@@ -9,19 +9,22 @@ export default function Dashboard(){
     const [teamates, setTeamates] = useState({});
     const [highlightedUser, setHighlightedUser] = useState({});
     
-    
-    useEffect(()=> {
-        fetch('api/getSummoner')
-        .then(res => res.json())
-        .then(data => {
-            const {user, users} = data; 
-            addUser(user);
-            addTeamates(users); 
-        })
-        .catch(err => console.log(err));
-    });
+    useEffect(() => {
+        addUser(userTestData);
+        addTeamates(potentialTeamatesTestData);
+    })
+    // useEffect(()=> {
+    //     fetch('api/getSummoner')
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         const {user, users} = data; 
+    //         addUser(user);
+    //         addTeamates(users); 
+    //     })
+    //     .catch(err => console.log(err));
+    // });
 
-    const userData = {
+    const userTestData = {
         "tier": "DIAMOND",
         "rank": "IV",
         "points": 93,
@@ -30,7 +33,7 @@ export default function Dashboard(){
         "summonerName": "Spanísh Teacher",
         "avatar" : "12"
     }; 
-    const potentialTeamates=  [{
+    const potentialTeamatesTestData=  [{
         "tier": "DIAMOND",
         "rank": "IV",
         "points": 93,
@@ -77,14 +80,18 @@ export default function Dashboard(){
 
     return (<div>
         <Nav/>
-        <UserProfile user={user}/>
-        <Feed teamates={teamates} displayTeamateData={highlightUser}/> 
-        <div className="highlighted-user">
-        <HighlightUser user={highlightedUser}/>
+        <div className="main-container">
+            <div className="main-content">
+                <UserProfile user={userTestData}/>
+                <Feed teamates={potentialTeamatesTestData} displayTeamateData={highlightUser}/> 
+            </div>
+            <div className="highlighted-user">
+                <HighlightUser user={highlightedUser}/>
+            </div>
         </div>
         
 
     </div>
 );
 
-    };
+};
