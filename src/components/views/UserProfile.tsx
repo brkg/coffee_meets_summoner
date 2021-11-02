@@ -21,7 +21,7 @@ export default function UserProfile(props: any) {
   return (
     <div className="user-profile" onClick={()=>displayTeamateData}>
     <div>
-      <h5 className="user-profile-name">{summonerName}</h5>
+      <h5 className="feed-tile-subtitle">Summoner: <span className="feed-tile-entry">{summonerName}</span></h5>
       <img src={`https://leagueoflegendsavatar/${avatar}`} width="100px" />
     </div>
     </div>

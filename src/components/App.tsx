@@ -3,7 +3,6 @@ import Nav from "./views/Nav";
 import Feed from "./views/Feed";
 import UserProfile from "./views/UserProfile";
 import HighlightUser from './views/HighlightUser';
-
 export default function Dashboard(){
     const [user, setUser] = useState({});
     const [teamates, setTeamates] = useState({});
@@ -78,7 +77,11 @@ export default function Dashboard(){
         .catch(err => console.log(err));
     }
 
-    return (<div>
+    let displayHighlighted : JSX.Element = Object.keys(highlightUser).length > 0 ? 
+        <HighlightUser user={highlightedUser}/> : 
+        <div><p>User will be here</p></div>;
+
+    return (<div className="app">
         <Nav/>
         <div className="main-container">
             <div className="main-content">
@@ -86,7 +89,7 @@ export default function Dashboard(){
                 <Feed teamates={potentialTeamatesTestData} displayTeamateData={highlightUser}/> 
             </div>
             <div className="highlighted-user">
-                <HighlightUser user={highlightedUser}/>
+               {displayHighlighted}
             </div>
         </div>
         
