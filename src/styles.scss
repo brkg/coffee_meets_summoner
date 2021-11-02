@@ -1,0 +1,41 @@
+
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .main-container{
+      margin : 2% 5% 1% 5%;
+      height: 95vh;
+      display: flex;    
+      flex-direction: row;
+  }
+
+  .main-content{
+      flex : 70%;
+      overflow:scroll;
+      overflow-x:hidden;
+  }
+
+.highlighted-user {
+    flex: 30%
+}
+
+.main-feed{}
+
+.user-profile{
+    border: 1px solid lightgrey;
+}
+
+.feed-tile{}
+
+.feed-tile-subtitle{}
+
+.feed-tile-entry{}
+
+
+ 
+
