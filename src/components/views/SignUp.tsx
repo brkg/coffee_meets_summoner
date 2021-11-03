@@ -14,10 +14,10 @@ export default function SignUp(props : {
     
     const {setLogin, summonerName, email, password, handleEmailChange, handlePasswordChange, handleSummonerChange, setCreds} = props;
     return (
-    <div>
-        <div className="auth-page">
-            
-            <h1>Sign Up</h1>
+    <div className="auth-page">
+        <div className='auth-form'>
+            <h1>Coffee Meets Summoner</h1>
+            <h4>Sign Up</h4>
             <form onSubmit={()=> setCreds(summonerName, email, password)}>
             <div>
             <label>
@@ -34,7 +34,8 @@ export default function SignUp(props : {
                 Password:
             <input className ="auth-input" type="password" value={password} onChange={handlePasswordChange} />
             </label >
-             <p onClick={setLogin}>Already have an Account?</p>
+            <button className='auth-button' onClick={()=>setCreds()}>Sign Up</button>
+             <p onClick={()=>setLogin()}>Already have an Account?</p>
             </form>
         </div>
          
