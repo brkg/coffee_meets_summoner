@@ -31,10 +31,9 @@ export default function HighlightUser(props : {user : string, userData : Array<i
         items.forEach((item : any) => {
            itemsToDisplay.push(
             <img 
-                className="highlighted-user-profile-imgs" 
+                className="highlighted-user-profile-imgs history-images" 
                 src={`http://ddragon.leagueoflegends.com/cdn/11.22.1/img/item/${item.id}.png`} 
-                alt={`iteam #${item.id} : ${item.name}`} 
-                width="50px" 
+                alt={`iteam #${item.id} : ${item.name}`}  
             />
            )  
         });
@@ -43,13 +42,12 @@ export default function HighlightUser(props : {user : string, userData : Array<i
 
         spells.forEach((spell : any) => {
            spellsToDisplay.push(
-            <div>
-                <p>{spell.name}</p>
-                <img 
-                    src={`http://ddragon.leagueoflegends.com/cdn/11.22.1/img/spell/${spell.id}.png`} 
-                    alt={`${spell.id}`}           
-                />    
-            </div>
+            
+            <img 
+                src={`http://ddragon.leagueoflegends.com/cdn/11.22.1/img/spell/${spell.id}.png`} 
+                alt={`${spell.id}`}           
+            />    
+            
            )  
              
         })
@@ -58,26 +56,30 @@ export default function HighlightUser(props : {user : string, userData : Array<i
         const backgroundColor = win === false ? "loss" : "win"
 
         gamesToDisplay.push(
-            <div className={`highlighted-game-${backgroundColor}`} >
-                <div>
-                    <h5>{`Champion: ${championName} `}</h5>
+            <div className={`highlighted-game-${backgroundColor}`+ " match-history"} >
+                <div className="champion-info">
+                    <h5>{`${championName}`}</h5>
                     <img
                         src={`https://ddragon.leagueoflegends.com/cdn/11.22.1/img/champion/${championName}.png`}
                         alt={`Champion ${championName}`}
-                        width='50px'
+                        width="50wv"
                     />
-                    <p>{lane}</p>
+                    <h5>{lane.toLowerCase()}</h5>
                 </div>
-                <div className="highlighted-row-element">
+                <div className="summoner-spells">
                     <h5>Spells</h5>
-                    {spellsToDisplay}
+                    <div className="history-images">{spellsToDisplay}</div>
+                    <h5></h5>
                 </div>
-                <div className="highlighted-row-element">
-                    {itemsToDisplay}
+                <div className="items">
+                    <h5>Items</h5>
+                    <div className="history-images">{itemsToDisplay}</div>
+                    <h5></h5>
                 </div>
-                <div className="highlighted-row-element">
-                    <p>kda</p>
-                    <p>{`${kills}|${deaths}|${assists}`}</p>
+                <div className="kda">
+                    <h5>KDA</h5>
+                    <h5>{`${kills}|${deaths}|${assists}`}</h5>
+                    <h5></h5>
                 </div>
             </div>
         )
@@ -87,7 +89,7 @@ export default function HighlightUser(props : {user : string, userData : Array<i
     contentToDisplay = 
         <div className="highlightedUserPanel">
             <div className='generic-data'>
-                <h2>{`${user}'s last 5 games`}</h2>
+                <h2>{`${user}'s Last 5 Solo Ranked Games`}</h2>
                 <div className="highlighted-games-data">
                     {gamesToDisplay}
                 </div>
