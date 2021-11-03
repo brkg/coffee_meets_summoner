@@ -10,7 +10,7 @@ export default function Dashboard(){
     const [user, setUser] = useState({});
     const [teamates, setTeamates] = useState({});
     const [highlightedUser, setHighlightedUser] = useState({});
-    const [loggedIn, setLogin] = useState(false);
+    const [loggedIn, setLogin] = useState(true);
 
     useEffect(()=> {
         axios.post('/api/getSummoner', {
