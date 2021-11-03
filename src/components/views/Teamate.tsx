@@ -4,7 +4,7 @@ interface ITeamate {
   summonerName: string;
   points: number;
   wins : number;
-  loses: number;
+  losses: number;
   rank: string;
   tier :String 
   highlightUserFunction : Function;
@@ -14,9 +14,9 @@ interface ITeamate {
 
 export default function Teamate(props: ITeamate) {
 
-  const { summonerName, wins, loses, tier, rank, points, highlightUserFunction} = props;
+  const { summonerName, wins, losses, tier, rank, points, highlightUserFunction} = props;
 
-  const average = wins / loses;
+  const average = (wins / losses).toFixed(2);
   
   return <div className="feed-tile" onClick={()=>highlightUserFunction(summonerName)}>
     <div className="feed-row">
@@ -29,7 +29,7 @@ export default function Teamate(props: ITeamate) {
     </div>
     <div className="feed-row">
       <p className="feed-tile-subtitle">Wins <span className="feed-tile-entry">{wins}</span></p>
-      <p className="feed-tile-subtitle">Losses <span className="feed-tile-entry">{loses}</span></p>
+      <p className="feed-tile-subtitle">Losses <span className="feed-tile-entry">{losses}</span></p>
       <p className="feed-tile-subtitle">Average <span className="feed-tile-entry">{average}</span></p>
 
     </div>
