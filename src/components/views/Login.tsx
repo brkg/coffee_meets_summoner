@@ -13,9 +13,10 @@ export default function Login(props: {
         const {setSignUp, email, password, handleEmailChange, handlePasswordChange, checkCreds} = props;
 
 return (
-    <div>
-         <div className="auth-page">
-            <h1>Login</h1>
+    <div className="auth-page">
+         <div className='auth-form'>
+            <h1>Coffee Meets Summoner</h1>
+            <h4>Login</h4>
             <form onSubmit={()=> checkCreds( email, password)}>
             <label>
                 Email:
@@ -25,7 +26,8 @@ return (
                 Password:
             <input className ="auth-input" type="password" value={password} onChange={handlePasswordChange} />
             </label>
-             <p onClick={setSignUp}>Don't have an Account?</p>
+             <button className='auth-button' onClick={()=>checkCreds()}>Login</button>
+             <p onClick={()=>setSignUp()}>Don't have an Account?</p>
             </form>
         </div>
     </div>)
