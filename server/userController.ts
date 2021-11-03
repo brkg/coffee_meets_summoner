@@ -6,19 +6,9 @@ import bcrypt from 'bcrypt';
 const userController: IObj = {};
 const SALT_FACTOR = 10;
 
-type User = {
-  username: string,
-  password: string,
-  summoner: string
-}
-
-declare let user: User | null;
-
-
 userController.signup = async (req: Request, res: Response, next: NextFunction) => {
   let hashedPassword;
   try{
-    console.log(req.body.password);
     hashedPassword = await bcrypt.hash(req.body.password, SALT_FACTOR);
   } catch(error){
     console.log("error with hashing");
@@ -28,7 +18,11 @@ userController.signup = async (req: Request, res: Response, next: NextFunction) 
                          `VALUES ('${req.body.username}', '${hashedPassword}', '${req.body.summoner}')`;
   try
   {
-    db.query(ADD_USER_QUERY);
+    db.query(ADD_USER_QUERY)
+      .then((result: any) => {
+        console.log(result);
+        res.locals.user = result;
+      });
   }
   catch(error)
   {
@@ -36,6 +30,31 @@ userController.signup = async (req: Request, res: Response, next: NextFunction) 
     return next(error);
   }
   return next();
+}
+
+userController.validateSignup = (req: Request, res: Response, next: NextFunction) => {
+  if(!req.body.username || !req.body.password || !req.body.summoner){
+    return next("error: some parts of request body missing");
+  }
+}
+
+userController.checkLogin = async(req: Request, res: Response, next: NextFunction) => {
+  const {username, password} = req.body;
+  if(!username || !password){
+    return next('requires username and password');
+  }
+
+  const QUERY = `SELECT * FROM Users WHERE Username='${username}'`;
+  db.query(QUERY)
+    .then(async (result: any) => {
+      const isValid = await bcrypt.compare(password, result.rows[0].password);
+      if(isValid){
+        res.locals.verifiedUser = result.rows[0];
+        return next();
+      }
+      else 
+        return next("no user valid");
+    });
 }
 
 export default userController;

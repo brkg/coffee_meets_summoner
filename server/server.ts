@@ -16,8 +16,12 @@ app.get("/", (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, "../src/index.html"));
 });
 
+app.post("/api/login", userController.checkLogin, (req, res) => {
+  return res.status(200).send({user: res.locals.verifiedUser});
+});
+
 app.post("/api/signup", userController.signup, (req, res) => {
-  return res.status(200);
+  return res.status(200).send('ok');
 });
 
 // app.use('/riotRouter', riotRouter)
