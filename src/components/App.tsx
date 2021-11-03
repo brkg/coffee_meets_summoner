@@ -3,25 +3,27 @@ import Nav from "./views/Nav";
 import Feed from "./views/Feed";
 import UserProfile from "./views/UserProfile";
 import HighlightUser from './views/HighlightUser';
+import Auth from './views/Auth';
+import axios from 'axios';
+
 export default function Dashboard(){
     const [user, setUser] = useState({});
     const [teamates, setTeamates] = useState({});
     const [highlightedUser, setHighlightedUser] = useState({});
-    
-    useEffect(() => {
-        addUser(userTestData);
-        addTeamates(potentialTeamatesTestData);
-    })
-    // useEffect(()=> {
-    //     fetch('api/getSummoner')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         const {user, users} = data; 
-    //         addUser(user);
-    //         addTeamates(users); 
-    //     })
-    //     .catch(err => console.log(err));
-    // });
+    const [loggedIn, setLogin] = useState(false);
+
+    useEffect(()=> {
+        axios.post('/api/getSummoner', {
+          summonerName: "kazaroon"
+        })
+        .then(data => {
+          const {userInfo, playerList} = data.data; 
+          addUser(userInfo);
+          addTeamates(playerList); 
+        })
+        .catch(err => console.log(err));
+      
+    }, []);
 
     const userTestData = {
         "tier": "DIAMOND",
@@ -62,6 +64,13 @@ export default function Dashboard(){
         }]
     ;
     
+    function checkCreds(email : string, password : string){
+        console.log( email, password);
+    }
+
+    function setCreds( summonerName : string, email : string, password : string){
+        console.log(summonerName, email, password);
+    }
     function addUser(userData : Object){
         setUser(userData);
     }
@@ -81,20 +90,27 @@ export default function Dashboard(){
         <HighlightUser user={highlightedUser}/> : 
         <div><p>User will be here</p></div>;
 
-    return (<div className="app">
-        <Nav/>
-        <div className="main-container">
-            <div className="main-content">
-                <UserProfile user={userTestData}/>
-                <Feed teamates={potentialTeamatesTestData} displayTeamateData={highlightUser}/> 
+    const displayApp : JSX.Element = 
+        <div className="app">
+            <Nav/>
+            <div className="main-container">
+                <div className="main-content">
+                    <UserProfile user={userTestData}/>
+                    <Feed teamates={potentialTeamatesTestData} displayTeamateData={highlightUser}/> 
+                </div>
+                <div className="highlighted-user">
+                {displayHighlighted}
+                </div>
             </div>
-            <div className="highlighted-user">
-               {displayHighlighted}
-            </div>
-        </div>
-        
+        </div>;
 
+
+    let componentToRender = loggedIn === true ? displayApp : <Auth  checkCreds={checkCreds} setCreds={setCreds}/>;
+
+    return ( 
+    <div>
+        {componentToRender}
     </div>
-);
+    );
 
 };

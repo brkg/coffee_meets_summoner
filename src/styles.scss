@@ -66,6 +66,19 @@
 
 .main-feed{}
 
+
+.auth-page{
+    margin : auto;
+}
+
+.auth-container{
+    display: flex;
+    justify-content: center;
+}
+
+.auth-input{
+    margin : 10px;
+}
 .user-profile{
     border: 1px solid lightgrey;
     margin-bottom: 6%;
@@ -89,7 +102,9 @@
     flex-direction: row;
 }
 
-.feed-tile-subtitle{}
+.feed-tile-subtitle{
+    color : lightgray;
+}
 
 .feed-tile-entry{}
 
