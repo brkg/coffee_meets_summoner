@@ -73,7 +73,7 @@ riotController.getOtherPlayers = (req: Request, res: Response, next: NextFunctio
 
 //controller for grabbing the matches the selected player has played
 riotController.getMatches = (req: Request, res: Response, next: NextFunction):void => {
-  console.log('get matches?')
+  console.log('get matches?', res.locals.puuid)
   const puuid = res.locals.puuid;
   axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
     .then((data: IObj) => {
@@ -113,6 +113,7 @@ riotController.getMatchDetails = async (req: Request, res: Response, next: NextF
       });
     });
     res.locals.matchDetails = matchDetails;
+    console.log('getMatchDetails', res.locals.matchDetails)
     next();
   }
   catch(err){
@@ -122,6 +123,7 @@ riotController.getMatchDetails = async (req: Request, res: Response, next: NextF
 
 riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunction):void => {
   try{
+    console.log('before for loop', res.locals.matchDetails)
     res.locals.matchDetails.forEach((playerMatch: IObj) => {
       const itemList: Array<IObj> = [];
       const spellList: Array<IObj> = [];
@@ -130,7 +132,7 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
         const itemDetail: IObj = {};
         if(item != "0"){
           itemDetail['id'] = item;
-          itemDetail['name'] = obj.items[item].name;
+          itemDetail['name'] = obj.items[item]["name"];
           itemDetail['text'] = obj.items[item].plaintext;
           itemList.push(itemDetail);
         }
@@ -144,7 +146,7 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
       playerMatch.items = itemList;
       playerMatch.spells = spellList;
     });
-
+    console.log('this is res.locals.matchDetails', res.locals.matchDetails);
     next();  
   } 
   catch(err){

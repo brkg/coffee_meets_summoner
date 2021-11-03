@@ -20,7 +20,8 @@ app.post('/api/getSummoner', riotController.convertToPuuid, riotController.getRa
   res.status(200).json(res.locals.getSummoner);
 });
 
-app.get('/api/getMatch', riotController.convertToPuuid, riotController.getMatches, riotController.getMatchDetails, riotController.getItemsAndSpells, (req: Request, res: Response) => {
+app.post('/api/getMatch', riotController.convertToPuuid, riotController.getMatches, riotController.getMatchDetails, riotController.getItemsAndSpells, (req: Request, res: Response) => {
+  console.log(res.locals.matchDetails, "here at matches");
   res.status(200).json(res.locals.matchDetails)
 })
 

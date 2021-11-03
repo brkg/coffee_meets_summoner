@@ -8,28 +8,26 @@ interface Iteamate {
   loses: number;
   rank: string;
   tier :String 
-  avatar: number;
-  highlightUser : Function;
+  highlightUserFunction : Function;
 }
 
  
 
 export default function Feed(props: any) {
-  const { teamates } = props;
+  const { teamates, highlightUserFunction} = props;
 
   const feedOfUsers: Array<JSX.Element> = [];
   teamates.forEach((user: Iteamate) => {
-    const { avatar, summonerName, wins, loses, tier, rank, points, highlightUser} = user;
+    const { summonerName, wins, loses, tier, rank, points} = user;
     feedOfUsers.push(
       <Teamate
-        avatar={avatar}
         summonerName={summonerName}
         wins={wins}
         loses={loses}
         tier={tier}
         rank={rank}
         points={points}
-        highlightUser={highlightUser}
+        highlightUserFunction={highlightUserFunction}
       />
     );
   });
