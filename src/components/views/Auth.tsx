@@ -52,7 +52,8 @@ export default function Auth(props : {setCreds : Function, checkCreds : Function
     handleEmailChange={handleEmailChange}
     handlePasswordChange={handlePasswordChange}
     checkCreds={checkCreds}/>;
-
+    
+   
     let pageToRender : JSX.Element = previousUser === true ? login : signup;
     return <div className="auth-container">
        {pageToRender}
