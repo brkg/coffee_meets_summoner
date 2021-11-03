@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, MouseEventHandler } from "react";
 
 export default function Login(props: {
-        setSignUp : MouseEventHandler, 
+        setSignUp : Function, 
         email : string, 
         password : string, 
         checkCreds : Function,

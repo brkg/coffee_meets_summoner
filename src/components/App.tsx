@@ -6,10 +6,12 @@ import HighlightUser from './views/HighlightUser';
 import Auth from './views/Auth';
 import axios from 'axios';
 
+
 export default function Dashboard(){
     const [user, setUser] = useState({});
-    const [teamates, setTeamates] = useState({});
-    const [highlightedUser, setHighlightedUser] = useState({});
+    const [teamates, setTeamates] = useState([]);
+    const [highlightedUser, setHighlightedUser] = useState('');
+    const [highlightedUserData, setHighlightedUserData] = useState([]);
     const [loggedIn, setLogin] = useState(true);
 
     useEffect(()=> {
@@ -18,51 +20,14 @@ export default function Dashboard(){
         })
         .then(data => {
           const {userInfo, playerList} = data.data; 
+          userInfo.summonerName = "kazaroon";
           addUser(userInfo);
+          console.log(playerList);
           addTeamates(playerList); 
         })
         .catch(err => console.log(err));
       
     }, []);
-
-    const userTestData = {
-        "tier": "DIAMOND",
-        "rank": "IV",
-        "points": 93,
-        "wins": 146,
-        "losses": 116,
-        "summonerName": "Spanísh Teacher",
-        "avatar" : "12"
-    }; 
-    const potentialTeamatesTestData=  [{
-        "tier": "DIAMOND",
-        "rank": "IV",
-        "points": 93,
-        "wins": 146,
-        "summonerName": "Spanísh Teacher",
-        "avatar" : "12"
-        }, 
-        {
-            "tier": "DIAMOND",
-        "rank": "IV",
-        "points": 93,
-        "wins": 146,
-        "losses": 116,
-        "summonerName": "Spanísh Teacher",
-        "avatar" : "12"
-
-        },
-        {
-        "tier": "DIAMOND",
-        "rank": "IV",
-        "points": 93,
-        "wins": 146,
-        "losses": 116,
-        "summonerName": "Spanísh Teacher",
-        "avatar" : "12"
-
-        }]
-    ;
     
     function checkCreds(email : string, password : string){
         console.log( email, password);
@@ -79,24 +44,34 @@ export default function Dashboard(){
         setTeamates(teamateData);
     }
 
-    function highlightUser(teamateName : string){
-        fetch(`/api/getUserData/${teamateName}`)
-        .then(res => res.json())
-        .then(data => setHighlightedUser(data))
-        .catch(err => console.log(err));
+    function highlightUserFunction(teamateName : string){
+        let resData : any = []
+        axios.post('/api/getMatch', {
+            summonerName: teamateName
+          })
+          .then(data => {
+              console.log(data.data);
+              resData = data.data;
+          })
+          .catch(err => console.log(err));
+          
+          setHighlightedUser(teamateName);
+          setHighlightedUserData(resData);
+          console.log(resData, "here is resdata");
     }
 
-    let displayHighlighted : JSX.Element = Object.keys(highlightUser).length > 0 ? 
-        <HighlightUser user={highlightedUser}/> : 
+    let displayHighlighted : JSX.Element = highlightedUser !== ''  ? 
+        <HighlightUser user={highlightedUser} userData={highlightedUserData}/> : 
         <div><p>User will be here</p></div>;
-
+    
+    
     const displayApp : JSX.Element = 
         <div className="app">
             <Nav/>
             <div className="main-container">
                 <div className="main-content">
-                    <UserProfile user={userTestData}/>
-                    <Feed teamates={potentialTeamatesTestData} displayTeamateData={highlightUser}/> 
+                    <UserProfile user={user}/>
+                    <Feed teamates={teamates} highlightUserFunction={highlightUserFunction} /> 
                 </div>
                 <div className="highlighted-user">
                 {displayHighlighted}
