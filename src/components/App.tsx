@@ -5,6 +5,7 @@ import UserProfile from "./views/UserProfile";
 import HighlightUser from './views/HighlightUser';
 import Auth from './views/Auth';
 import axios from 'axios';
+import e from 'express';
 
 
 export default function Dashboard(){
@@ -49,11 +50,16 @@ export default function Dashboard(){
             summonerName: teamateName
           })
           .then(data => {
-              resData = data.data;
-              setHighlightedUser(teamateName);
-              setHighlightedUserData(resData);
+            resData = data.data;
+            console.log(data.data);
+            setHighlightedUser(teamateName);
+            setHighlightedUserData(resData);
+              
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            setHighlightedUser("User not found");
+            console.log(err);
+          });
           
     }
 
