@@ -11,10 +11,11 @@ interface IObj {
 
 //we are expected ro recieved summoner name 
 riotController.convertToPuuid = (req: Request , res: Response, next: NextFunction):void => {
-  console.log('did it hit?');
   const { summonerName }: { summonerName: string} = req.body; //this will be used in a template literal for the api address
-  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  const URLencoded = encodeURIComponent(summonerName)
+  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${URLencoded}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
     .then((data: IObj)=> {
+      console.log('puuid', data.data.puuid)
       res.locals.puuid = data.data.puuid;
       res.locals.id = data.data.id;
       res.locals.avatar = data.data.profileIconId;
@@ -139,10 +140,7 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
       });
 
       playerMatch.spells.forEach((spell: string) => {
-        const spellDetail: IObj = {};
-        spellDetail['id'] = spell;
-        spellDetail['name'] = obj.summonerSpells[spell]["name"];
-        spellDetail['description'] = obj.summonerSpells[spell].description;
+        const spellDetail: IObj = obj.summonerSpells[spell];
         spellList.push(spellDetail);
       });
 

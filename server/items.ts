@@ -8762,44 +8762,54 @@ obj.items = {
 
 obj.summonerSpells ={
   21: {
-    name: "Barrier",
-    description : "Shields your champion from 115-455 damage (depending on champion level) for 2 seconds.",    
+      id: "SummonerBarrier",
+      name: "Barrier",
+      description : "Shields your champion from 115-455 damage (depending on champion level) for 2 seconds.",    
   },
   1: {
-    name: "Cleanse",
-    description : "Removes all disables (excluding suppression and airborne) and summoner spell debuffs affecting your champion and lowers the duration of incoming disables by 65% for 3 seconds",    
+      id: "SummonerBoost",
+      name: "Cleanse",
+      description : "Removes all disables (excluding suppression and airborne) and summoner spell debuffs affecting your champion and lowers the duration of incoming disables by 65% for 3 seconds",    
   },
   14: {
-        name: "Ignite",
-        description : "Ignites target enemy champion, dealing 70-410 true damage (depending on champion level) over 5 seconds, grants you vision of the target, and reduces healing effects on them for the duration.",    
+      id: "SummonerDot",
+      name: "Ignite",
+      description : "Ignites target enemy champion, dealing 70-410 true damage (depending on champion level) over 5 seconds, grants you vision of the target, and reduces healing effects on them for the duration.",    
   },
   3: {
-    name: "Exhaust",
-    description : "Exhausts target enemy champion, reducing their Move Speed by 30%, and their damage dealt by 40% for 3 seconds.",    
+      id: "SummonerExhaust",
+      name: "Exhaust",
+      description : "Exhausts target enemy champion, reducing their Move Speed by 30%, and their damage dealt by 40% for 3 seconds.",    
   },
   4: {
-        name: "Flash",
-        description : "Teleports your champion a short distance toward your cursor's location.",    
+      id: "SummonerFlash",
+      name: "Flash",
+      description : "Teleports your champion a short distance toward your cursor's location.",    
   },
   6: {
-        name: "Ghost",
-        description : "For 10 seconds, your champion can move through units and gains 24 - 48% Movement Speed (depending on champion level). Ghost extends its duration on takedown.",    
+      id: "SummonerHaste",
+      name: "Ghost",
+      description : "For 10 seconds, your champion can move through units and gains 24 - 48% Movement Speed (depending on champion level). Ghost extends its duration on takedown.",    
   },
   7: {
-            name: "Heal",
-            description : "Restores 90-345 Health (depending on champion level) and grants 30% Movement Speed for 1 second to you and target allied champion. This healing is halved for units recently affected by Summoner Heal.",
+      id: "SummonerHeal",
+      name: "Heal",
+      description : "Restores 90-345 Health (depending on champion level) and grants 30% Movement Speed for 1 second to you and target allied champion. This healing is halved for units recently affected by Summoner Heal.",
   },
   13: {
-        name: "Clarity",
-        description : "Restores 50% of your champion's maximum Mana. Also restores allies for 25% of their maximum Mana.",    
+      id: "SummonerMana",
+      name: "Clarity",
+      description : "Restores 50% of your champion's maximum Mana. Also restores allies for 25% of their maximum Mana.",    
   },
   11: {
-        name: "Smite",
-        description : "Deals @SmiteBaseDamage@ true damage to target epic, large, or medium monster or minion.",    
+      id: "SummonerSmite",
+      name: "Smite",
+      description : "Deals @SmiteBaseDamage@ true damage to target epic, large, or medium monster or minion.",    
   },
   12: {
-            name: "Teleport",
-            description : "After channeling for 4 seconds, teleports your champion to target allied structure, minion, or ward and grants a Move Speed boost. The cooldown of Teleport scales from 420-210 seconds depending on champion level.",    
+      id: "SummonerTeleport",
+      name: "Teleport",
+      description : "After channeling for 4 seconds, teleports your champion to target allied structure, minion, or ward and grants a Move Speed boost. The cooldown of Teleport scales from 420-210 seconds depending on champion level.",    
   },
 
 }
