@@ -16,7 +16,7 @@ interface IUser {
 export default function UserProfile(props: any) {
   const { avatar, summonerName, wins, losses, tier, rank, points, displayTeamateData} = props.user;
 
-  const average : number = (wins + losses) / 2;
+  const average : number = (100*(wins / (losses + wins))).toFixed(1);
 
   return (
     <div className="user-profile-container">
@@ -33,7 +33,7 @@ export default function UserProfile(props: any) {
         <div className="feed-row">
           <p className="feed-tile-subtitle"> Wins <span className="feed-tile-entry">{wins}</span></p>
           <p className="feed-tile-subtitle"> Losses <span className="feed-tile-entry">{losses}</span></p>
-          <p className="feed-tile-subtitle"> Average <span className="feed-tile-entry">{average}</span></p>
+          <p className="feed-tile-subtitle"> Win Rate <span className="feed-tile-entry">{average}%</span></p>
         </div>
       </div>
     </div>
