@@ -10,8 +10,8 @@ const pool = new Pool({
 });
 
 export default {
-  query: (text, params, callback) => {
+  query: (text: string) => {
     console.log('executed query', text);
-    return pool.query(text, params, callback);
+    return pool.query(text);
   }
 };
