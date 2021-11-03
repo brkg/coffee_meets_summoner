@@ -5,6 +5,7 @@ import UserProfile from "./views/UserProfile";
 import HighlightUser from './views/HighlightUser';
 import Auth from './views/Auth';
 import axios from 'axios';
+import e from 'express';
 
 
 export default function Dashboard(){
@@ -22,7 +23,6 @@ export default function Dashboard(){
           const {userInfo, playerList} = data.data; 
           userInfo.summonerName = "kazaroon";
           addUser(userInfo);
-          console.log(playerList);
           addTeamates(playerList); 
         })
         .catch(err => console.log(err));
@@ -50,14 +50,17 @@ export default function Dashboard(){
             summonerName: teamateName
           })
           .then(data => {
-              console.log(data.data);
-              resData = data.data;
+            resData = data.data;
+            console.log(data.data);
+            setHighlightedUser(teamateName);
+            setHighlightedUserData(resData);
+              
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            setHighlightedUser("User not found");
+            console.log(err);
+          });
           
-          setHighlightedUser(teamateName);
-          setHighlightedUserData(resData);
-          console.log(resData, "here is resdata");
     }
 
     let displayHighlighted : JSX.Element = highlightedUser !== ''  ? 
