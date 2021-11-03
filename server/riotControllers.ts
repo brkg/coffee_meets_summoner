@@ -2,15 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import obj from './items';
 import dotenv from 'dotenv';
+import IObj from './IObj'
 
 dotenv.config();
 
 const riotController:IObj = {};
-
-interface IObj {
-    [key: string]: any
-};
-
 
 //we are expected ro recieved summoner name 
 riotController.convertToPuuid = (req: Request , res: Response, next: NextFunction):void => {
