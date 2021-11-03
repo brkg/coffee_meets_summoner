@@ -131,13 +131,14 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
     res.locals.matchDetails.forEach((playerMatch: IObj) => {
       const itemList: Array<IObj> = [];
       const spellList: Array<IObj> = [];
-
+      console.log('playerMatch.items', playerMatch.items);
       playerMatch.items.forEach((item: string) => {
         const itemDetail: IObj = {};
         if(item != "0"){
           itemDetail['id'] = item;
           itemDetail['name'] = obj.items[item]["name"];
           itemDetail['text'] = obj.items[item].plaintext;
+          console.log('this is itemDetail', itemDetail)
           itemList.push(itemDetail);
         }
       });
