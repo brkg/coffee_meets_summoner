@@ -22,7 +22,6 @@ export default function Dashboard(){
           const {userInfo, playerList} = data.data; 
           userInfo.summonerName = "kazaroon";
           addUser(userInfo);
-          console.log(playerList);
           addTeamates(playerList); 
         })
         .catch(err => console.log(err));
@@ -50,14 +49,12 @@ export default function Dashboard(){
             summonerName: teamateName
           })
           .then(data => {
-              console.log(data.data);
               resData = data.data;
+              setHighlightedUser(teamateName);
+              setHighlightedUserData(resData);
           })
           .catch(err => console.log(err));
           
-          setHighlightedUser(teamateName);
-          setHighlightedUserData(resData);
-          console.log(resData, "here is resdata");
     }
 
     let displayHighlighted : JSX.Element = highlightedUser !== ''  ? 
