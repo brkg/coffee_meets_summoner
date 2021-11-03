@@ -2,14 +2,14 @@ import React, {MouseEventHandler, useState} from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-export default function Auth(props : {setCreds : Function, checkCreds : Function}){
+export default function Auth(props : {setCreds : Function, checkCreds : Function, loginFailed : Boolean}){
 
     const [previousUser, setPreviousUser] = useState(true); 
     const [summonerName, setSummonerName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
-    const {setCreds , checkCreds} = props; 
+    const {setCreds , checkCreds , loginFailed} = props; 
 
     function handleEmailChange(e : any){
         const newEmail = e.target.value;
@@ -46,6 +46,7 @@ export default function Auth(props : {setCreds : Function, checkCreds : Function
     />;
     const login : JSX.Element = 
     <Login 
+    loginFailed={loginFailed}
     setSignUp={setSignUp} 
     email={email} 
     password={password} 

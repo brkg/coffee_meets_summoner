@@ -10,10 +10,12 @@ import e from 'express';
 
 export default function Dashboard(){
     const [user, setUser] = useState({});
+    const [summonerName, setSummonerName] = useState('');
+    const [loginFailed, setLoginFailed] = useState(false);
     const [teamates, setTeamates] = useState([]);
     const [highlightedUser, setHighlightedUser] = useState('');
     const [highlightedUserData, setHighlightedUserData] = useState([]);
-    const [loggedIn, setLogin] = useState(true);
+    const [loggedIn, setLogin] = useState(false);
 
     useEffect(()=> {
         axios.post('/api/getSummoner', {
@@ -21,7 +23,7 @@ export default function Dashboard(){
         })
         .then(data => {
           const {userInfo, playerList} = data.data; 
-          userInfo.summonerName = "kazaroon";
+          userInfo.summonerName =  summonerName;
           addUser(userInfo);
           addTeamates(playerList); 
         })
@@ -29,11 +31,38 @@ export default function Dashboard(){
     }, []);
     
     function checkCreds(email : string, password : string){
-        console.log( email, password);
+    
+        axios.post('/api/login', {
+            username : email,
+            password : password
+        })
+        .then(data => {
+            if (data.data.user){
+                const {username } = data.data.user;
+                setLoginFailed(false);
+                setSummonerName(username);
+            } else {
+                setLoginFailed(true);
+            }
+             
+        })
+        .catch(err =>  setLoginFailed(true));
     }
 
     function setCreds( summonerName : string, email : string, password : string){
-        console.log(summonerName, email, password);
+        
+        axios.post("/api/signup", {
+            summonerName : summonerName,
+            username : email, 
+            password : password
+        }).then(() =>
+        {
+            setLogin(true);
+            setSummonerName(summonerName);
+        })
+          .catch(err => console.log(err));
+         
+        
     }
     function addUser(userData : Object){
         setUser(userData);
@@ -64,7 +93,7 @@ export default function Dashboard(){
 
     let displayHighlighted : JSX.Element = highlightedUser !== ''  ? 
         <HighlightUser user={highlightedUser} userData={highlightedUserData}/> : 
-        <div><p>User will be here</p></div>;
+        <div><p>Click on Potential Teamates</p></div>;
     
     
     const displayApp : JSX.Element = 
@@ -82,7 +111,7 @@ export default function Dashboard(){
         </div>;
 
 
-    let componentToRender = loggedIn === true ? displayApp : <Auth  checkCreds={checkCreds} setCreds={setCreds}/>;
+    let componentToRender = loggedIn === true ? displayApp : <Auth  checkCreds={checkCreds} setCreds={setCreds} loginFailed={loginFailed}/>;
 
     return ( 
     <div>
