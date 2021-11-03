@@ -137,10 +137,7 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
       });
 
       playerMatch.spells.forEach((spell: string) => {
-        const spellDetail: IObj = {};
-        spellDetail['id'] = spell;
-        spellDetail['name'] = obj.summonerSpells[spell].name;
-        spellDetail['description'] = obj.summonerSpells[spell].description;
+        const spellDetail: IObj = obj.summonerSpells[spell];
         spellList.push(spellDetail);
       });
 
