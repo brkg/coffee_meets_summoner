@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import axios from "axios";
 import obj from './items';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const riotController:IObj = {};
 
@@ -13,9 +16,9 @@ interface IObj {
 riotController.convertToPuuid = (req: Request , res: Response, next: NextFunction):void => {
   const { summonerName }: { summonerName: string} = req.body; //this will be used in a template literal for the api address
   const URLencoded = encodeURIComponent(summonerName)
-  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${URLencoded}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${URLencoded}?api_key=${process.env.API_KEY}`)
     .then((data: IObj)=> {
-      console.log('puuid', data.data.puuid)
+      // console.log('puuid', data.data.puuid)
       res.locals.puuid = data.data.puuid;
       res.locals.id = data.data.id;
       res.locals.avatar = data.data.profileIconId;
@@ -28,7 +31,7 @@ riotController.convertToPuuid = (req: Request , res: Response, next: NextFunctio
 riotController.getRank = (req: Request, res: Response, next: NextFunction):void => {
   const id: string = res.locals.id;
   res.locals.getSummoner = {};
-  axios.get(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  axios.get(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${process.env.API_KEY}`)
     .then((data: IObj) => {
       const userInfo: IObj = {};
       data.data.forEach((obj: IObj) => {
@@ -52,7 +55,7 @@ riotController.getRank = (req: Request, res: Response, next: NextFunction):void 
 riotController.getOtherPlayers = (req: Request, res: Response, next: NextFunction):void => {
   const { tier, rank } = res.locals.getSummoner.userInfo;
   //data returned from this fetch should grab all players under the tier and rank criteria
-  axios.get(`https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/IV?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  axios.get(`https://na1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/IV?api_key=${process.env.API_KEY}`)
     .then((data: IObj)=> {
       //retrieve the top 20 results from this fetch request
       const players: Array<IObj> = [];
@@ -74,9 +77,9 @@ riotController.getOtherPlayers = (req: Request, res: Response, next: NextFunctio
 
 //controller for grabbing the matches the selected player has played
 riotController.getMatches = (req: Request, res: Response, next: NextFunction):void => {
-  console.log('get matches?', res.locals.puuid)
+  // console.log('get matches?', res.locals.puuid)
   const puuid = res.locals.puuid;
-  axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=${process.env.API_KEY}`)
     .then((data: IObj) => {
       res.locals.matches = data.data;
       next();
@@ -86,11 +89,11 @@ riotController.getMatches = (req: Request, res: Response, next: NextFunction):vo
 
 //controller will then take the match ids which should grab the details of that game and we want to send back an array of objects representing each game (limit: 5);
 riotController.getMatchDetails = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log('get match details?')
+    // console.log('get match details?')
   try{
     const Promises: Array<Promise<object>> = [];  
     res.locals.matches.forEach((match: string)=>{
-      Promises.push(axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/${match}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`))
+      Promises.push(axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/${match}?api_key=${process.env.API_KEY}`))
     });
 
     const matchDetails: Array<IObj> = [];
@@ -114,7 +117,7 @@ riotController.getMatchDetails = async (req: Request, res: Response, next: NextF
       });
     });
     res.locals.matchDetails = matchDetails;
-    console.log('getMatchDetails', res.locals.matchDetails)
+    // console.log('getMatchDetails', res.locals.matchDetails)
     next();
   }
   catch(err){
@@ -124,7 +127,7 @@ riotController.getMatchDetails = async (req: Request, res: Response, next: NextF
 
 riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunction):void => {
   try{
-    console.log('before for loop', res.locals.matchDetails)
+    // console.log('before for loop', res.locals.matchDetails)
     res.locals.matchDetails.forEach((playerMatch: IObj) => {
       const itemList: Array<IObj> = [];
       const spellList: Array<IObj> = [];
@@ -147,7 +150,7 @@ riotController.getItemsAndSpells = (req: Request, res: Response, next: NextFunct
       playerMatch.items = itemList;
       playerMatch.spells = spellList;
     });
-    console.log('this is res.locals.matchDetails', res.locals.matchDetails);
+    // console.log('this is res.locals.matchDetails', res.locals.matchDetails);
     next();  
   } 
   catch(err){
