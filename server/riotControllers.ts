@@ -13,7 +13,7 @@ interface IObj {
 riotController.convertToPuuid = (req: Request , res: Response, next: NextFunction):void => {
   console.log('did it hit?');
   const { summonerName }: { summonerName: string} = req.body; //this will be used in a template literal for the api address
-  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/kazaroon?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
+  axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb`)
     .then((data: IObj)=> {
       res.locals.puuid = data.data.puuid;
       res.locals.id = data.data.id;
