@@ -26,7 +26,6 @@ export default function Dashboard(){
           addTeamates(playerList); 
         })
         .catch(err => console.log(err));
-      
     }, []);
     
     function checkCreds(email : string, password : string){

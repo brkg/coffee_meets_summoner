@@ -1,16 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import axios from "axios";
+import axios from 'axios';
 import obj from './items';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import IObj from './IObj'
 
 dotenv.config();
 
 const riotController:IObj = {};
-
-interface IObj {
-    [key: string]: any
-};
-
 
 //we are expected ro recieved summoner name 
 riotController.convertToPuuid = (req: Request , res: Response, next: NextFunction):void => {
@@ -24,7 +20,7 @@ riotController.convertToPuuid = (req: Request , res: Response, next: NextFunctio
       res.locals.avatar = data.data.profileIconId;
       next();
     })
-    .catch(err => next(err));
+    .catch((err:any) => next(err));
 };
 
 //using the IDs we extracted, destructure out the necessary id and grab the rank from the API
@@ -47,7 +43,7 @@ riotController.getRank = (req: Request, res: Response, next: NextFunction):void 
       res.locals.getSummoner.userInfo = userInfo;
       next();
     })
-    .catch(err => next(err));
+    .catch((err:any) => next(err));
 };
 
 //https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/bYxTa0Sq6DFXxDERMRGLSdnw0Fy7utzXFvIdSz_H6Bjy1C8?api_key=RGAPI-d2e110dd-8e54-44de-9d25-17f5122d5cbb
@@ -73,7 +69,7 @@ riotController.getOtherPlayers = (req: Request, res: Response, next: NextFunctio
       console.log(players[0]);
       next();
     })
-    .catch(err => next(err));
+    .catch((err:any) => next(err));
 };
 
 //controller for grabbing the matches the selected player has played
@@ -85,7 +81,7 @@ riotController.getMatches = (req: Request, res: Response, next: NextFunction):vo
       res.locals.matches = data.data;
       next();
     })
-    .catch(err => next(err));
+    .catch((err:any) => next(err));
 }
 
 //controller will then take the match ids which should grab the details of that game and we want to send back an array of objects representing each game (limit: 5);

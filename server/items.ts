@@ -1,7 +1,4 @@
-
-interface IObj {
-        [key: string]: any
-}
+import IObj from './IObj';
 
 const obj: IObj = {}
 
