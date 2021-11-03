@@ -60,10 +60,39 @@
       overflow-x:hidden;
   }
 
+
 .highlighted-user {
   display: flex;
   justify-content: center;
-  flex: 30%
+  flex: 30%;
+  width: 95%;
+}
+
+.highlighted-row-element-spells{
+  display: flex;
+  flex-direction: row;
+}
+
+.highlighted-user-main{
+  width: 90%;
+}
+
+.highlighted-game-win{
+  background-color: #caf0cd;
+   
+}
+
+.highlighted-game-loss{
+  background-color: #e2b1b1;
+   
+}
+
+.highlighted-user-win{
+  background-color: "#a2c9e7";
+}
+
+.highlighted-user-loss{
+  background-color: "#e2b1b1";
 }
 
 .main-feed{}
