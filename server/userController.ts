@@ -39,6 +39,7 @@ userController.validateSignup = (req: Request, res: Response, next: NextFunction
 }
 
 userController.checkLogin = async(req: Request, res: Response, next: NextFunction) => {
+  console.log("inside of login");
   const {username, password} = req.body;
   if(!username || !password){
     return next('requires username and password');

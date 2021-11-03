@@ -18,14 +18,13 @@ export default function SignUp(props : {
         <div className='auth-form'>
             <h1>Coffee Meets Summoner</h1>
             <h4>Sign Up</h4>
-            <form onSubmit={()=> setCreds(summonerName, email, password)}>
+            <div>
             <div>
             <label>
                 Summoner Name:
             <input className ="auth-input" type="text" value={summonerName} onChange={handleSummonerChange} />
             </label>
             </div>
-             
             <label>
                 Email:
             <input className ="auth-input" type="text" value={email} onChange={handleEmailChange} />
@@ -34,9 +33,10 @@ export default function SignUp(props : {
                 Password:
             <input className ="auth-input" type="password" value={password} onChange={handlePasswordChange} />
             </label >
-            <button className='auth-button' onClick={()=>setCreds()}>Sign Up</button>
+            <button className='auth-button' onClick={()=>setCreds(summonerName, email, password)}>Sign Up</button> 
+            <p></p>
              <p onClick={()=>setLogin()}>Already have an Account?</p>
-            </form>
+            </div>
         </div>
          
     </div>);
