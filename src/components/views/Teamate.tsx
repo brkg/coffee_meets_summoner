@@ -16,7 +16,7 @@ export default function Teamate(props: ITeamate) {
 
   const { summonerName, wins, losses, tier, rank, points, highlightUserFunction} = props;
 
-  const average = (wins / losses).toFixed(2);
+  const average = (100*(wins / (losses + wins))).toFixed(1);
   
   return <div className="feed-tile" onClick={()=>highlightUserFunction(summonerName)}>
     <div className="feed-row">
@@ -30,7 +30,7 @@ export default function Teamate(props: ITeamate) {
     <div className="feed-row">
       <p className="feed-tile-subtitle">Wins <span className="feed-tile-entry">{wins}</span></p>
       <p className="feed-tile-subtitle">Losses <span className="feed-tile-entry">{losses}</span></p>
-      <p className="feed-tile-subtitle">Average <span className="feed-tile-entry">{average}</span></p>
+      <p className="feed-tile-subtitle">Win Rate <span className="feed-tile-entry">{average}%</span></p>
 
     </div>
   </div>;
